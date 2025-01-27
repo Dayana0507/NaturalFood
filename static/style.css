@@ -1,0 +1,255 @@
+/* Secciones ocultas y visibles según la clase del body */
+#home, #cart {
+  display: none;
+}
+
+body.show-home #home {
+  display: block;
+}
+
+body.show-cart #cart {
+  display: block;
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 10px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1, h2 {
+  margin: 0;
+  font-size: 24px;
+}
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav button {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  background-color:#429447 ;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+  background-color: #1b311b;
+}
+
+/* Main Sections */
+main {
+  margin: 20px;
+}
+
+section {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Product List */
+#product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+#product-list li {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fafafa;
+}
+
+#product-list li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#product-list img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+#product-list button {
+  background-color: #007BFF;
+  color: white;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#product-list button:hover {
+  background-color: #0056b3;
+}
+
+/* Cart List */
+#cart-list {
+  padding: 0;
+  list-style: none;
+}
+
+#cart-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+#cart-list img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+#cart-list form {
+  display: flex;
+  align-items: center;
+}
+
+#cart-list button {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#cart-list button:hover {
+  background-color: #e0a800;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+}
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input,
+form textarea,
+form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+form textarea {
+  resize: vertical;
+}
+
+form input:focus {
+  border-color: #007BFF;
+  outline: none;
+  background-color: #fff;
+}
+
+form button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+p a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+
+/* Total Price */
+section#cart p {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #product-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  #cart-list li {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #cart-list img {
+    margin-bottom: 10px;
+  }
+}

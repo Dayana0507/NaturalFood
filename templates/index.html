@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Alimentos Saludables</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{{ 'show-cart' if request.args.get('cart') else 'show-home' }}">
+
+  <header>
+    <h1>Plataforma de Alimentos Saludables</h1>
+    <nav>
+      <button id="home-tab" onclick="showSection('home')">Inicio</button>
+      <button id="cart-tab" onclick="showSection('cart')">Carrito</button>
+      <button id="logout-tab" onclick="window.location.href='{{ url_for('logout') }}'">Cerrar sesión</button>
+    </nav>
+
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Productos Disponibles</h2>
+      <ul id="product-list">
+        {% for product in products %}
+        <li>
+          <img src="{{ product['image'] }}" alt="{{ product['name'] }}"><br>
+          {{ product['name'] }} - ${{ product['price'] }}
+          <form action="{{ url_for('add_to_cart', product_id=product['id']) }}" method="POST">
+            <button type="submit">Añadir al Carrito</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>      
+    </section>
+
+    <section id="cart" style="display: none;">
+      <h2>Carrito de Compras</h2>
+      <ul id="cart-list">
+        {% if cart_items %}
+          {% for item in cart_items %}
+          <li>
+            <img src="{{ item['image'] }}" alt="{{ item['name'] }}" width="100px">
+            {{ item['name'] }} - ${{ item['price'] }} x {{ item['quantity'] }}
+            <form action="{{ url_for('update_cart', cart_id=item['cart_id']) }}" method="POST">
+              <button type="submit" name="action" value="increase">+</button>
+              <button type="submit" name="action" value="decrease">-</button>
+              <button type="submit" name="action" value="remove">Eliminar</button>
+            </form>
+          </li>
+          {% endfor %}
+        {% else %}
+          <li>El carrito está vacío.</li>
+        {% endif %}
+      </ul>
+      
+      <p>Total: ${{ total }}</p>
+
+      <form action="{{ url_for('checkout') }}" method="POST">
+        <button type="submit">Finalizar Compra</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function showSection(section) {
+      document.getElementById('home').style.display = section === 'home' ? 'block' : 'none';
+      document.getElementById('cart').style.display = section === 'cart' ? 'block' : 'none';
+    }
+
+    window.onload = function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const showCart = urlParams.get('cart'); 
+      if (showCart) {
+        showSection('cart');
+      }
+    };
+  </script>
+</body>
+</html>
